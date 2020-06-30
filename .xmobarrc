@@ -1,0 +1,34 @@
+-- Thanks to krive001 to share the code of xmobar
+-- https://github.com/krive001/xmonad-xmobar
+
+Config {
+    font = "xft:Noto Sans LGC:size=11:style=Regular",
+    additionalFonts = ["xft:Noto Sans:size=10:style=Bold","xft:FontAwesome:style=Regular:size=13"]
+   , bgColor          = "#2F343F"
+   , fgColor          = "white"
+   , position         = TopSize C 100 30
+   , textOffset       = -1
+   , iconOffset       = -8
+   , alpha            = 255
+   , border           = BottomB
+   , borderWidth      = 0
+   , borderColor      = "#c0c5ce"
+   , lowerOnStart     = True
+   , hideOnStart      = False
+   , allDesktops      = True
+   , overrideRedirect = True
+   , pickBroadest     = True
+   , persistent       = True
+   , sepChar          = "%"
+   , alignSep         = "}{"
+   , template         = "<fc=white><fn=2><action=button=4><action=button=5>%UnsafeStdinReader%</action></action></fn></fc>}<action=`gsimplecal` button=1>%date%</action>{<fc=white> %update% </fc> | <action=`pavucontrol` button=3><action=`XMMute` button=1><action=button=4><action=button=5>%XVol% </action></action></action></action>"
+   , commands         =
+      [ Run Com "/bin/bash" ["-c", "XMgetvolume"]  "XVol" 10
+
+      , Run UnsafeStdinReader
+
+	  , Run Com "/bin/bash" ["-c",  "XMKupdate"] "update" 600
+
+      , Run Date                                "%d-%m-%Y  %H:%M" "date" 60]
+
+}
