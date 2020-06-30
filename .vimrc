@@ -61,8 +61,7 @@ map <Space> <leader>
 set ignorecase             " Make searches case-insensitive.
 set ruler                  " Always show info along bottom.
 set autoindent             " auto-indent
-set clipboard=unnamed      " use system clipboard
-set clipboard=unnamedplus  " 
+set clipboard^=unnamed,unnamedplus
 set scrolloff=999          " the cursor is centered vertically if posible
 set dir=~/tmp              " swap files in a temp dir, not on my repos
 set wildmode=longest,list,full
