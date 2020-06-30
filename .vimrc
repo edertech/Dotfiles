@@ -8,10 +8,10 @@ filetype off                  " required
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 
-call vundle#begin()		" required, all plugins must appear after this line.
+call vundle#begin()		                             " required, all plugins must appear after this line.
 
 Plugin 'gmarik/Vundle.vim'							" Vundle
-Plugin 'ajh17/Spacegray.vim'   
+Plugin 'ajh17/Spacegray.vim'
 Plugin 'bronson/vim-trailing-whitespace'
 Plugin 'itchyny/lightline.vim'                      " Lightline statusbar
 Plugin 'tpope/vim-sensible'
@@ -21,7 +21,7 @@ Plugin 'udalov/kotlin-vim'
 Plugin 'tpope/vim-markdown'
 Plugin 'vifm/vifm.vim'     
 Plugin 'vimwiki/vimwiki'                            " Vim wiki
-Plugin 'scrooloose/nerdtree'						" added nerdtree
+Plugin 'scrooloose/nerdtree'						            " added nerdtree
 Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plugin 'ryanoasis/vim-devicons'
 Plugin 'frazrepo/vim-rainbow'
@@ -58,13 +58,15 @@ nnoremap <leader>e :Explore<CR>
 " => MISC
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 map <Space> <leader>
-set ignorecase            " Make searches case-insensitive.
-set ruler                 " Always show info along bottom.
-set autoindent            " auto-indent
-set clipboard^=unnamed,unnamedplus
-set scrolloff=999         " the cursor is centered vertically if posible
-set dir=~/tmp             " swap files in a temp dir, not on my repos
-
+set ignorecase             " Make searches case-insensitive.
+set ruler                  " Always show info along bottom.
+set autoindent             " auto-indent
+set clipboard=unnamed      " use system clipboard
+set clipboard=unnamedplus  " 
+set scrolloff=999          " the cursor is centered vertically if posible
+set dir=~/tmp              " swap files in a temp dir, not on my repos
+set wildmode=longest,list,full
+set list                   " shows $ at the end of line and ^I instead of tabs.
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Disable arrow keys to learn the hjkl 
