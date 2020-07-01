@@ -58,6 +58,7 @@ nnoremap <leader>e :Explore<CR>
 " => MISC
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 map <Space> <leader>
+set nowrap
 set ignorecase             " Make searches case-insensitive.
 set ruler                  " Always show info along bottom.
 set autoindent             " auto-indent
