@@ -42,7 +42,8 @@ import qualified Data.ByteString as B
 import Control.Monad (liftM2)
 
 import XMonad.Layout.ResizableTile
-
+  ( ResizableTall(..)
+  , MirrorResize(MirrorShrink,MirrorExpand) )
 
 ----------------------
 -- VARIABLES
@@ -89,7 +90,7 @@ myLayoutHook = spacingRaw True (Border 0 5 5 5) True (Border 5 5 5 5) True $ gap
                $ avoidStruts
                $ mkToggle (NBFULL ?? NOBORDERS ?? EOT)
                $ smartBorders
-               $ ResizableTall 1 (3/100) (1/2) [] ||| tiled ||| Grid ||| spiral (6/7) ||| ThreeColMid 1 (3/100) (1/2) ||| noBorders Full
+               $ ResizableTall 2 (1/10) 1 [] ||| tiled ||| Grid ||| spiral (6/7) ||| ThreeColMid 1 (3/100) (1/2) ||| noBorders Full
                     where
                     tiled   = Tall nmaster delta ratio
                     nmaster = 1
@@ -145,7 +146,6 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((modMask, xK_r), spawn $ "rofi -show run")
   , ((modMask, xK_s), spawn $ "spotify")
   , ((modMask, xK_t), spawn $ "urxvt" )
-  , ((modMask, xK_u), sendMessage MirrorExpand)
   , ((modMask, xK_v), spawn $ "pavucontrol" )
   , ((modMask, xK_w), spawn $ "qutebrowser" )
   , ((modMask, xK_y), spawn $ "polybar-msg cmd toggle" )
@@ -239,7 +239,10 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- Expand the master area.
   , ((controlMask .|. shiftMask , xK_l), sendMessage Expand)
 
-  --
+  -- Expand / Shirink tile
+  , ((controlMask .|. shiftMask, xK_k), sendMessage MirrorExpand)
+  , ((controlMask .|. shiftMask, xK_j), sendMessage MirrorShrink)
+
   -- Resizable Tile
   --
   -- Push window back into tiling.
@@ -301,6 +304,7 @@ main = do
         , ppSep = "  "
         , ppWsSep = "  "
         , ppLayout = (\ x -> case x of
+           "Spacing ResizableTall"        -> "<fn=1>Resizable</fn>"
            "Spacing Tall"                 -> "<fn=1>Tall</fn>"
            "Spacing Grid"                 -> "<fn=1>Grid</fn>"
            "Spacing Spiral"               -> "<fn=1>spiral</fn>"
