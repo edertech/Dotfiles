@@ -1,34 +1,36 @@
--- Thanks to krive001 to share the code of xmobar
--- https://github.com/krive001/xmonad-xmobar
-
-Config {
-    font = "xft:Noto Sans LGC:size=11:style=Regular",
-    additionalFonts = ["xft:Noto Sans:size=10:style=Bold","xft:FontAwesome:style=Regular:size=13"]
-   , bgColor          = "#2F343F"
-   , fgColor          = "white"
-   , position         = TopSize C 100 30
-   , textOffset       = -1
-   , iconOffset       = -8
-   , alpha            = 255
-   , border           = BottomB
-   , borderWidth      = 0
-   , borderColor      = "#c0c5ce"
-   , lowerOnStart     = True
-   , hideOnStart      = False
-   , allDesktops      = True
-   , overrideRedirect = True
-   , pickBroadest     = True
-   , persistent       = True
-   , sepChar          = "%"
-   , alignSep         = "}{"
-   , template         = "<fc=white><fn=2><action=button=4><action=button=5>%UnsafeStdinReader%</action></action></fn></fc>}<action=`gsimplecal` button=1>%date%</action>{<fc=white> %update% </fc> | <action=`pavucontrol` button=3><action=`XMMute` button=1><action=button=4><action=button=5>%XVol% </action></action></action></action>"
-   , commands         =
-      [ Run Com "/bin/bash" ["-c", "XMgetvolume"]  "XVol" 10
-
-      , Run UnsafeStdinReader
-
-	  , Run Com "/bin/bash" ["-c",  "XMKupdate"] "update" 600
-
-      , Run Date                                "%d-%m-%Y  %H:%M" "date" 60]
-
-}
+Config { font = "-*-Fixed-Bold-R-Normal-*-13-*-*-*-*-*-*-*"
+        , borderColor = "black"
+        , fgColor = "grey"
+        , position = Top
+        , border = TopB
+        , bgColor = "black"
+        , hideOnStart = False
+        , allDesktops = True
+        , persistent = True
+        , commands = [ Run Weather "SBSP" ["-t","<tempC>C","-L","18","-H","25","--normal","green","--high","red","--low","lightblue"] 36000
+                        , Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
+                        , Run Memory ["-t","Mem: <usedratio>%"] 10
+                        , Run Swap [] 10
+                        , Run Com "uname" ["-s","-r"] "" 36000
+                        , Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
+                        , Run StdinReader
+        -- battery monitor
+        , Run Battery        [ "--template" , "Batt: <acstatus>"
+                             , "--Low"      , "10"        -- units: %
+                             , "--High"     , "80"        -- units: %
+                             , "--low"      , "darkred"
+                             , "--normal"   , "darkorange"
+                             , "--high"     , "darkgreen"
+                             , "--" -- battery specific options
+                                       -- discharging status
+                                       , "-o"    , "<left>% (<timeleft>)"
+                                       -- AC "on" status
+                                       , "-O"    , "<fc=#dAA520>Charging</fc>"
+                                       -- charged status
+                                       , "-i"    , "<fc=#006000>Charged</fc>"
+                             ] 50
+                    ]
+        , sepChar = "%"
+        , alignSep = "}{"
+        , template = "%StdinReader% | %battery% | %cpu% | %memory% * %swap% }{<fc=#ee9a00>%date%</fc> | %uname% | %SBSP% "
+        }
