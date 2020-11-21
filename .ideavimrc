@@ -23,13 +23,13 @@ noremap <Right> <Nop>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Splits and Buffers 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nnoremap <leader>v :vsp<CR>
-nnoremap <leader>V :sp<CR>
-nnoremap <leader>h <C-W>h
-nnoremap <leader>l <C-W>l
-nnoremap <leader>k <C-W>k
-nnoremap <leader>j <C-W>j
-nnoremap <leader>q :q<CR>
+nnoremap <leader>wv :vsp<CR>
+nnoremap <leader>ws :sp<CR>
+nnoremap <leader>wh <C-W>h
+nnoremap <leader>wl <C-W>l
+nnoremap <leader>wk <C-W>k
+nnoremap <leader>wj <C-W>j
+nnoremap <leader>wc :q<CR>
 nnoremap <leader>b :buffers<CR>:b
 
 set clipboard+=ideaput
