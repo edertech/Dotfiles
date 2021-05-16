@@ -108,8 +108,8 @@ font pango: JetBrainsMono Nerd Font 12
     # Start your launcher
     bindsym $mod+d exec $menu
 
-    # lock screen 
-    bindsym ctrl+alt+l exec swaylock -S
+    # lock screen
+    bindsym ctrl+alt+l exec swaylock -f -c 000000
 
     # screenshot
     bindsym $mod+p exec grimshot save area
@@ -281,7 +281,7 @@ bindsym XF86Search exec wofi --show=drun --lines=5 --prompt=""
 
 # Startup
 exec_always --no-startup-id flashfocus
-exec pamac-tray
+exec nm-applet
 
 
 include /etc/sway/config.d/*
