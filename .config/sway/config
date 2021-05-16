@@ -27,7 +27,8 @@ set $browser qutebrowser
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu dmenu_path | dmenu | xargs swaymsg exec --
+#set $menu dmenu_path | dmenu | xargs swaymsg exec --
+set $menu dmenu_run -fn 'JetBrainsMono Nerd Font Bold' -nf 'white' -nb 'black'
 
 ### Output configuration
 #
@@ -282,6 +283,7 @@ bindsym XF86Search exec wofi --show=drun --lines=5 --prompt=""
 # Startup
 exec_always --no-startup-id flashfocus
 exec nm-applet
+exec blueman-tray
 
 
 include /etc/sway/config.d/*
