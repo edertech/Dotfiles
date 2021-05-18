@@ -37,7 +37,7 @@ set $menu dmenu_run -fn 'JetBrainsMono Nerd Font Bold' -nf 'white' -nb 'black'
 output * bg /home/ederson/Pictures/wallpapers/carla-gugino-2.jpg fill
 
 # Font
-font pango: JetBrainsMono Nerd Font 12
+font pango: JetBrainsMono Nerd Font 14
 
 #
 # Example configuration:
