@@ -1,35 +1,45 @@
-set surround              " visual select and then S
-set multiple-cursors      " <A + c> , <A + x>, <A + a> 
-set incsearch             " But do highlight as you type your search.
-set ignorecase            " Make searches case-insensitive.
-set clipboard=unnamed     " yank and paste from system clipboard
-"set scrolloff=999         " the cursor is centered vertically if posible
-set number relativenumber
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" intellimacs plugin
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+source ~/.intellimacs/spacemacs.vim
 
-"Remap ESC to ii
+" (Optional) Enable other Intellimacs modules
+source ~/.intellimacs/extra.vim
+source ~/.intellimacs/major.vim
+source ~/.intellimacs/hybrid.vim
+
+" (Optional) Enable which-key plugin
+source ~/.intellimacs/which-key.vim
+
+" (Optional) My own vim commands
+nnoremap Y y$
+
+" (Optional) Comma for major mode
+nmap , <leader>m
+vmap , <leader>m
+
+" (Optional) Add/edit actions
+nnoremap <leader>gl    :action Vcs.Show.Log<CR>
+vnoremap <leader>gl    :action Vcs.Show.Log<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" my personal configs
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Remap ESC to ii
 :imap ii <Esc>
 
 map <Space> <leader>
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Disable arrow keys to learn the hjkl 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Disable arrow keys to learn the hjkl
 noremap <Up> <Nop>
 noremap <Down> <Nop>
 noremap <Left> <Nop>
 noremap <Right> <Nop>
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Splits and Buffers 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nnoremap <leader>wv :vsp<CR>
-nnoremap <leader>ws :sp<CR>
-nnoremap <leader>wh <C-W>h
-nnoremap <leader>wl <C-W>l
-nnoremap <leader>wk <C-W>k
-nnoremap <leader>wj <C-W>j
-nnoremap <leader>wc :q<CR>
-nnoremap <leader>b :buffers<CR>:b
-
-set clipboard+=ideaput
+" set clipboard+=ideaput
