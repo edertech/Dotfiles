@@ -26,7 +26,6 @@ vnoremap <leader>gl    :action Vcs.Show.Log<CR>
 
 
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " my personal configs
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -42,4 +41,7 @@ noremap <Left> <Nop>
 noremap <Right> <Nop>
 
 
-" set clipboard+=ideaput
+" => Plugins
+set NERDTree
+set easymotion
+set surround
