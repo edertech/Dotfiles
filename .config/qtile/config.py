@@ -8,6 +8,7 @@ from libqtile import qtile
 from libqtile.config import Click, Drag, Group, KeyChord, Key, Match, Screen
 from libqtile.command import lazy
 from libqtile import layout, bar, widget, hook
+from libqtile.widget import (Systray)
 from typing import List  # noqa: F401
 
 # Mod Keys
@@ -72,6 +73,9 @@ keys = [
          # Apps
          Key([mod],  'b',
              lazy.spawn(BROWSER)
+             ),
+         Key([mod], "z",
+             lazy.spawn("pcmanfm")
              ),
          # Switch focus to specific monitor (out of three)
          Key([mod], "w",
@@ -365,16 +369,6 @@ def init_widgets_list():
                        background=colors[0],
                        padding=0
                        ),
-              widget.Systray(
-                       background=colors[0],
-                       padding=5
-                       ),
-              widget.Sep(
-                       linewidth=0,
-                       padding=6,
-                       foreground=colors[0],
-                       background=colors[0]
-                       ),
               widget.TextBox(
                        text='',
                        background=colors[0],
@@ -389,24 +383,20 @@ def init_widgets_list():
                        background=colors[4],
                        padding=5
                        ),
+              Systray(
+                       background=colors[0],
+                       padding=5
+                       ),
+              widget.Sep(
+                       linewidth=0,
+                       padding=6,
+                       foreground=colors[0],
+                       background=colors[0]
+                       ),
               widget.TextBox(
                        text='',
                        background=colors[4],
                        foreground=colors[5],
-                       padding=0,
-                       fontsize=37
-                       ),
-              widget.TextBox(
-                       text=" 🌡 TEMP NOT SHOWN ",
-                       padding=2,
-                       foreground=colors[2],
-                       background=colors[5],
-                       fontsize=11
-                       ),
-              widget.TextBox(
-                       text='',
-                       background=colors[5],
-                       foreground=colors[4],
                        padding=0,
                        fontsize=37
                        ),
@@ -592,7 +582,7 @@ mouse = [
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: List
 main = None
-follow_mouse_focus = True
+follow_mouse_focus = False
 bring_front_click = False
 cursor_warp = False
 
