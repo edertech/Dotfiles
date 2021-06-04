@@ -1,4 +1,4 @@
-set PATH $PATH /home/ederson/.local/bin 
+set PATH $PATH /home/ederson/.local/bin ~/.ghcup/bin
 
 alias config='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
 
