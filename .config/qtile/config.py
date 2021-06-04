@@ -10,13 +10,18 @@ from libqtile.command import lazy
 from libqtile import layout, bar, widget, hook
 from typing import List  # noqa: F401
 
-mod = "mod4"                                     # Sets mod key to SUPER/WINDOWS
-myTerm = "alacritty"                             # My terminal of choice
+# Mod Keys
+mod = "mod4"
+alt = "mod1"
+
+# consts
+TERM_EMULATOR = "alacritty"
+BROWSER = "brave"
 
 keys = [
          # The essentials
          Key([mod], "Return",
-             lazy.spawn(myTerm+" -e fish"),
+             lazy.spawn(TERM_EMULATOR+" -e fish"),
              desc='Launches My Terminal'
              ),
          Key([mod, "shift"], "Return",
@@ -39,9 +44,34 @@ keys = [
              lazy.shutdown(),
              desc='Shutdown Qtile'
              ),
+         Key(["control", alt], "l",
+             lazy.spawn("xlock"),
+             desc='lock screen'
+             ),
          Key(["control", "shift"], "e",
              lazy.spawn("emacsclient -c -a emacs"),
              desc='My SpaceEmacs'
+             ),
+         # Screen
+         Key([], 'F10',
+             lazy.spawn('xset dpms force off')
+             ),
+         Key([], 'XF86MonBrightnessUp',
+             lazy.spawn('xbacklight -inc 10')
+             ),
+         Key([], 'XF86MonBrightnessDown',
+             lazy.spawn('xbacklight -dec 10')
+             ),
+         # Audio
+         Key([], 'XF86AudioMute', lazy.spawn('amixer set Master toggle')),
+         Key([], 'XF86AudioRaiseVolume', lazy.spawn('amixer set Master 5%+ unmute')),
+         Key([], 'XF86AudioLowerVolume', lazy.spawn('amixer set Master 5%- unmute')),
+         Key([], 'XF86AudioPlay', lazy.spawn('playerctl play-pause')),
+         Key([], 'XF86AudioNext', lazy.spawn('playerctl next')),
+         Key([], 'XF86AudioPrev', lazy.spawn('playerctl previous')),
+         # Apps
+         Key([mod],  'b',
+             lazy.spawn(BROWSER)
              ),
          # Switch focus to specific monitor (out of three)
          Key([mod], "w",
@@ -171,35 +201,31 @@ keys = [
          # Dmenu scripts launched using the key chord SUPER+p followed by 'key'
          KeyChord([mod], "p", [
              Key([], "e",
-                 lazy.spawn("./dmscripts/dmconf"),
+                 lazy.spawn("dm-confedit"),
                  desc='Choose a config file to edit'
                  ),
              Key([], "i",
-                 lazy.spawn("./dmscripts/dmscrot"),
+                 lazy.spawn("dm-maim"),
                  desc='Take screenshots via dmenu'
                  ),
              Key([], "k",
-                 lazy.spawn("./dmscripts/dmkill"),
+                 lazy.spawn("dm-kill"),
                  desc='Kill processes via dmenu'
                  ),
-             Key([], "l",
-                 lazy.spawn("./dmscripts/dmlogout"),
-                 desc='A logout menu'
-                 ),
              Key([], "m",
-                 lazy.spawn("./dmscripts/dman"),
+                 lazy.spawn("dm-man"),
                  desc='Search manpages in dmenu'
                  ),
              Key([], "o",
-                 lazy.spawn("./dmscripts/dmqute"),
+                 lazy.spawn("dm-websearch"),
                  desc='Search your qutebrowser bookmarks and quickmarks'
                  ),
              Key([], "r",
-                 lazy.spawn("./dmscripts/dmred"),
+                 lazy.spawn("dm-reddit"),
                  desc='Search reddit via dmenu'
                  ),
              Key([], "s",
-                 lazy.spawn("./dmscripts/dmsearch"),
+                 lazy.spawn("dm-websearch"),
                  desc='Search various search engines via dmenu'
                  ),
              Key([], "p",
@@ -232,15 +258,7 @@ layout_theme = {"border_width": 2,
                 }
 
 layouts = [
-    # layout.MonadWide(**layout_theme),
-    # layout.Bsp(**layout_theme),
-    # layout.Stack(stacks=2, **layout_theme),
-    # layout.Columns(**layout_theme),
-    # layout.RatioTile(**layout_theme),
-    # layout.Tile(shift_windows=True, **layout_theme),
-    # layout.VerticalTile(**layout_theme),
-    # layout.Matrix(**layout_theme),
-    # layout.Zoomy(**layout_theme),
+    layout.Tile(shift_windows=True, **layout_theme),
     layout.MonadTall(**layout_theme),
     layout.Max(**layout_theme),
     layout.Stack(num_stacks=2),
@@ -301,7 +319,7 @@ def init_widgets_list():
               widget.Image(
                        filename="~/.config/qtile/icons/python-white.png",
                        scale="False",
-                       mouse_callbacks={'Button1': lambda: qtile.cmd_spawn(myTerm)}
+                       mouse_callbacks={'Button1': lambda: qtile.cmd_spawn(TERM_EMULATOR)}
                        ),
               widget.Sep(
                        linewidth=0,
@@ -385,12 +403,6 @@ def init_widgets_list():
                        background=colors[5],
                        fontsize=11
                        ),
-              # widget.ThermalSensor(
-              #          foreground = colors[2],
-              #          background = colors[5],
-              #          threshold = 90,
-              #          padding = 5
-              #          ),
               widget.TextBox(
                        text='',
                        background=colors[5],
@@ -410,7 +422,7 @@ def init_widgets_list():
                        distro="Arch_checkupdates",
                        display_format="{updates} Updates",
                        foreground=colors[2],
-                       mouse_callbacks={'Button1': lambda: qtile.cmd_spawn(myTerm + ' -e sudo pacman -Syu')},
+                       mouse_callbacks={'Button1': lambda: qtile.cmd_spawn(TERM_EMULATOR + ' -e sudo pacman -Syu')},
                        background=colors[4]
                        ),
               widget.TextBox(
@@ -430,7 +442,7 @@ def init_widgets_list():
               widget.Memory(
                        foreground=colors[2],
                        background=colors[5],
-                       mouse_callbacks={'Button1': lambda: qtile.cmd_spawn(myTerm + ' -e htop')},
+                       mouse_callbacks={'Button1': lambda: qtile.cmd_spawn(TERM_EMULATOR + ' -e htop')},
                        padding=5
                        ),
               widget.TextBox(
@@ -605,12 +617,5 @@ def start_once():
     subprocess.call([home + '/.config/qtile/autostart.sh'])
 
 
-# XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
-# string besides java UI toolkits; you can see several discussions on the
-# mailing lists, GitHub issues, and other WM documentation that suggest setting
-# this string if your java app doesn't work correctly. We may as well just lie
-# and say that we're a working one by default.
-#
-# We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
-# java that happens to be on java's whitelist.
+# Deal with java UI
 wmname = "LG3D"

@@ -6,6 +6,8 @@ picom &
 nitrogen --restore &
 /usr/bin/emacs --daemon &
 volumeicon &
-nm-applet &
+nm-applet &/
+blueman-tray
+
 # replace capslock with control key
 xmodmap ~/.Xmodmap
